@@ -23,6 +23,7 @@
       rel="stylesheet"
       href="https://cdnjs.cloudflare.com/ajax/libs/normalize/5.0.0/normalize.min.css"
     />
+
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.2.0/jquery.min.js"></script>
   </head>
   <body>
@@ -60,7 +61,6 @@
       </div>
       <script>
         var domain = window.location.hostname;
-        console.log(domain);
         var buildUrl = "Build";
         var loaderUrl = buildUrl + "/WebGL.loader.js";
         var config = {
@@ -108,38 +108,36 @@
             .then((unityInstance) => {
               unityInstance.SendMessage(
                 "WebGLVariableManager",
-                "set_BundleURL",
+                "SetEnableAutoLoadAssetBundles",
+                "true"
+              );
+              unityInstance.SendMessage(
+                "WebGLVariableManager",
+                "SetBundleURL",
                 `${
                   domain.includes("local")
                     ? "http://localhost:3000"
                     : `https://${domain}`
                 }/AssetBundles/`
               );
+              unityInstance.SendMessage(
+                "WebGLVariableManager",
+                "SetHitCountToEnterDevMode",
+                "2"
+              );
+
               $("#overlay")
                 .delay(350)
-                .animate(
-                  {
-                    "margin-left": "-=1700",
-                  },
-                  "slow"
-                )
+                .animate({ "margin-left": "-=1700" }, "slow")
                 .fadeOut();
               $("#overlay-clip")
                 .delay(350)
-                .animate(
-                  {
-                    opacity: 0,
-                  },
-                  "slow"
-                )
+                .animate({ opacity: 0 }, "slow")
                 .fadeOut();
               $("#counter")
                 .delay(200)
                 .animate(
-                  {
-                    opacity: 0,
-                    "margin-top": "-=100",
-                  },
+                  { opacity: 0, "margin-top": "-=100" },
                   150,
                   function () {
                     $(this).css("display", "none");
@@ -148,10 +146,7 @@
               $("#loadingBox")
                 .delay(200)
                 .animate(
-                  {
-                    "margin-top": "+=100",
-                    opacity: 0,
-                  },
+                  { "margin-top": "+=100", opacity: 0 },
                   "200",
                   function () {
                     $(this).css("display", "none");
