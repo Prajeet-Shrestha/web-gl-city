@@ -114,11 +114,7 @@
               unityInstance.SendMessage(
                 "WebGLVariableManager",
                 "SetBundleURL",
-                `${
-                  domain.includes("local")
-                    ? "http://localhost:3000"
-                    : `https://${domain}`
-                }/AssetBundles/`
+                `https://emerald-meta.s3.ap-south-1.amazonaws.com/AssetBundles/`
               );
               unityInstance.SendMessage(
                 "WebGLVariableManager",
